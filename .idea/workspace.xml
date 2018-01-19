@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6c0f5bfc-5af2-48d7-9023-487bc0c0e8b9" name="Default" comment="" />
+    <list default="true" id="6c0f5bfc-5af2-48d7-9023-487bc0c0e8b9" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/config/initializers/geokit.rb" afterPath="$PROJECT_DIR$/config/initializers/geokit.rb" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,11 +23,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/countries/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="17" column="31" lean-forward="false" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="geokit.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/initializers/geokit.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="45" lean-forward="false" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -55,13 +67,13 @@
         <option value="$PROJECT_DIR$/app/controllers/states_controller.rb" />
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/app/controllers/countries_controller.rb" />
-        <option value="$PROJECT_DIR$/config/initializers/geokit.rb" />
         <option value="$PROJECT_DIR$/app/models/state.rb" />
         <option value="$PROJECT_DIR$/app/views/countries/_country.json.jbuilder" />
         <option value="$PROJECT_DIR$/app/views/countries/_form.html.erb" />
         <option value="$PROJECT_DIR$/app/models/country.rb" />
         <option value="$PROJECT_DIR$/app/views/countries/index.html.erb" />
         <option value="$PROJECT_DIR$/app/views/countries/show.html.erb" />
+        <option value="$PROJECT_DIR$/config/initializers/geokit.rb" />
       </list>
     </option>
   </component>
@@ -267,12 +279,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1516310267933</updated>
-      <workItem from="1516310269130" duration="11850000" />
+      <workItem from="1516310269130" duration="11967000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11850000" />
+    <option name="totallyTimeSpent" value="11967000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="22" width="1438" height="874" extended-state="6" />
@@ -541,14 +553,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/initializers/geokit.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="84" lean-forward="false" selection-start-line="1" selection-start-column="84" selection-end-line="1" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/countries/_form.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -593,6 +597,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="31" lean-forward="false" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/initializers/geokit.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="45" lean-forward="false" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
           <folding />
         </state>
       </provider>
