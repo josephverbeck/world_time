@@ -1,65 +1,122 @@
-<p id="notice"><%= notice %></p>
-<head>
-  <style>
-    /* Always set the map height explicitly to define the size of the div
-     * element that contains the map. */
-    #map {
-      height: 50%;
-    }
-    html, body {
-      height: 85%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
 
-</head>
+<body class="spacer">
+    <div id="map"></div>
+    <div id="legend"><h3>Legend</h3></div>
 
-<body>
-<div id="map"></div>
-<script>
-    var map;
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: <%=@country.lat %>, lng: <%= @country.long %>},
-            zoom: 4
-        });
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets.google_api_key %>&callback=initMap"
+    <p>
+    <strong>Name:</strong>
+    <%= @country.name %>
+    </p>
+
+    <% if @country.states.size > 0 %>
+
+    <h2>States</h2>
+    <table>
+        <th>Name</th>
+        <th>Lat</th>
+        <th>Long</th>
+        <% for state in @country.states %>
+            <tr>
+            <td><%=state.state_name%></td>
+            <td><%=state.lat%></td>
+            <td><%=state.long%></td>
+            </tr>
+        <% end %>
+    </table>
+    <% end %>
+
+    <h2>New State</h2>
+
+    <%= form_for [@country, State.new] do |f| %>
+        <p><%= f.label :name %> <%= f.text_field :name %></p>
+        <p><%= f.submit %></p>
+    <% end %>
+
+
+
+    <%= link_to 'Edit', edit_country_path(@country) %> |
+    <%= link_to 'Back', countries_path %>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets.google_api_key %>&callback=initMap"
         async defer></script>
 </body>
 
-<p>
-  <strong>Name:</strong>
-  <%= @country.name %>
-</p>
+<script>
 
-<% if @country.states.size > 0 %>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: <%=@country.lat %>, lng: <%= @country.long %>},
+            zoom: 4
+        });
 
-  <h2>States</h2>
-  <table>
-    <th>Name</th>
-    <th>Lat</th>
-    <th>Long</th>
-    <% for state in @country.states %>
-      <tr>
-        <td><%=state.state_name%></td>
-        <td><%=state.lat%></td>
-        <td><%=state.long%></td>
-      </tr>
-    <% end %>
-  </table>
-<% end %>
+        var states = gon.states;
+        var iconBase = 'https://maps.google.com/mapfiles/kml/pal3/';
+        var icons = {
+            day_light_savings: {
+                name: 'DST',
+                icon: iconBase + 'icon40.png'
+            }
+        };
+        setMarkers(map, states);
+        createLegend(map, icons);
 
-<h2>New State</h2>
+    }
 
-<%= form_for [@country, State.new] do |f| %>
-  <p><%= f.label :name %> <%= f.text_field :name %></p>
-  <p><%= f.submit %></p>
-<% end %>
+    function createLegend(map, icons){
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+            var type = icons[key];
+            var name = type.name;
+            var icon = type.icon;
+            var div = document.createElement('div');
+            div.innerHTML = '<img src="' + icon + '"> ' + name;
+            legend.appendChild(div);
+        }
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+    }
 
+    function setMarkers(map, states){
+        Object.keys(states).forEach(function (key) {
+            var value = states[key];
+            console.log(key);
+            console.log(value['lat']);
+            var marker = new google.maps.Marker({
+                position: {lat: value['lat'], lng: value['long']},
+                map: map,
+                title: key
+            });
 
+            var content = buildHtmlForMarker(key, value['tz'], value['dst']);
 
-<%= link_to 'Edit', edit_country_path(@country) %> |
-<%= link_to 'Back', countries_path %>
+            var infowindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
+                return function(){
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                }
+            })(marker, content, infowindow));
+        });
+    }
+
+    function buildHtmlForMarker(key, tz, day_light_saving){
+        var div = document.createElement('div');
+        div.setAttribute('class', "header");
+        var dst = document.createElement('img');
+        dst.setAttribute('src', "https://maps.google.com/mapfiles/kml/pal3/icon40.png");
+        var stateName = document.createElement('h3');
+        stateName.innerText = key;
+        var time = document.createElement('h4');
+        time.innerText = "Time:  " + new Date(tz).toUTCString();
+        var wikiLink = document.createElement('a');
+        wikiLink.setAttribute('href', "https://en.wikipedia.org/wiki/" + key);
+        wikiLink.innerText = "Wiki";
+
+        if(day_light_saving){
+            div.appendChild(dst);
+        }
+        div.appendChild(stateName);
+        div.appendChild(time);
+        div.appendChild(wikiLink);
+        return div;
+    }
+</script>

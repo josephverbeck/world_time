@@ -6,9 +6,16 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= Gon::Base.render_data %>
   </head>
 
   <body>
+    <%= nav_bar fixed: :top, brand: "World Time", responsive: true do %>
+      <%= menu_group do %>
+        <%= menu_divider %>
+        <%= menu_item "Countries", countries_path %>
+        <% end %>
+      <%  end %>
     <%= yield %>
   </body>
 </html>

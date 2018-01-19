@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root :to => 'countries#index'
+
   resources :countries do
     resources :states
   end

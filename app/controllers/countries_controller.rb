@@ -10,6 +10,16 @@ class CountriesController < ApplicationController
   # GET /countries/1
   # GET /countries/1.json
   def show
+    @states = {}
+    @country.states.each do | state |
+      @states[state.state_name] = {
+          :lat => state.lat,
+          :long => state.long,
+          :dst => @country.day_light_savings,
+          :tz => Timezone[state.timezone].utc_to_local(Time.now)
+      }
+    end
+    gon.states = @states
   end
 
   # GET /countries/new

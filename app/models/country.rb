@@ -4,6 +4,7 @@ class Country
   field :country_code, type: String
   field :full_address, type: String
   field :country, type: String
+  field :day_light_savings, type: Boolean
   field :lat, type: Float
   field :long, type: Float
 
@@ -17,6 +18,7 @@ class Country
     self.country ||= location.country
     self.country_code ||= location.country_code
     self.lat, self.long = location.ll.split(",")
+    self.day_light_savings = Timezone.lookup(self.lat, self.long).dst?(Time.now)
   end
 
 

@@ -10,6 +10,8 @@ gem 'mongoid'
 #Geokit
 gem 'geokit'
 gem 'timezone', '~> 1.0'
+gem 'gon'
+gem 'twitter-bootstrap-rails'
 #Symmetric-encryption
 gem 'symmetric-encryption', '~> 3.8', '>= 3.8.2'
 
