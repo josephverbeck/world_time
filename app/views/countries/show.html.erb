@@ -1,10 +1,39 @@
 <p id="notice"><%= notice %></p>
+<head>
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 50%;
+    }
+    html, body {
+      height: 85%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+</head>
+
+<body>
+<div id="map"></div>
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: <%=@country.lat %>, lng: <%= @country.long %>},
+            zoom: 4
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets.google_api_key %>&callback=initMap"
+        async defer></script>
+</body>
 
 <p>
   <strong>Name:</strong>
   <%= @country.name %>
 </p>
-
 
 <% if @country.states.size > 0 %>
 
