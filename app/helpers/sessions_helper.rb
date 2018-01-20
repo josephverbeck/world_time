@@ -5,7 +5,6 @@ module SessionsHelper
   end
 
   def current_user
-    p session[:user_id]
     @current_user ||= User.find(id: session[:user_id])
   end
 

@@ -18,6 +18,7 @@ class Address
   field :state_name, type: String
   field :timezone, type: String
   field :_id, type: String, default: ->{ name }
+  field :user_search, type: Array
 
   before_create :set_fields
 
