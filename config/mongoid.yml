@@ -155,3 +155,14 @@ test:
         read:
           mode: :primary
         max_pool_size: 1
+
+production:
+  clients:
+    default:
+      database: world_time_test
+      hosts:
+        - <%= ENV['MONGODB_URI'] %>
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 1
