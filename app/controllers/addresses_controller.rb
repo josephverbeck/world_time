@@ -38,6 +38,7 @@ class AddressesController < ApplicationController
     if(address.blank?)
       Address.new({:name => country_params[:country]}).save!
       newAddress = Address.where(:_id => country_params[:country]).first
+      Address.new({:name => newAddress.country}).save!
       @country = Address.where(:_id => newAddress.country).first
     else
       @country = Address.where(:_id => address.country).first
