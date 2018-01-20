@@ -13,9 +13,9 @@
     <tbody>
     <% @countries.each do |country| %>
       <tr>
-        <td><%= country.country %></td>
-        <td><%= link_to 'Show', country %></td>
-        <td><%= link_to 'Edit', edit_country_path(country) %></td>
+        <td><%= country %></td>
+        <td><%= link_to 'Show', address_path(country) %></td>
+        <td><%= link_to 'Edit', edit_address_path(country) %></td>
       </tr>
     <% end %>
     </tbody>
@@ -23,7 +23,7 @@
 
   <br>
 
-  <%= link_to 'New Country', new_country_path %>
+  <%= link_to 'New Address', new_address_path %>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets.google_api_key %>&callback=initMap"
           async defer></script>

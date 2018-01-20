@@ -13,9 +13,9 @@
     <%= nav_bar fixed: :top, brand: "World Time" do %>
       <%= menu_group do %>
         <%= menu_divider %>
-        <%= menu_item "Countries", countries_path %>
+        <%= menu_item "Countries", addresses_path %>
         <% end %>
-        <%= form_tag(new_country_path, method: 'get', class: 'navbar-form navbar-right') do %>
+        <%= form_tag(new_address_path, method: 'get', class: 'navbar-form navbar-right') do %>
         <%= search_field_tag 'country', nil, class: 'form-control', placeholder: 'Search'  %>
         <%= submit_tag "Submit", class: 'btn btn-default' %>
     <% end %>

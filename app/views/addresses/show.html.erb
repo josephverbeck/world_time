@@ -8,34 +8,8 @@
     <%= @country.name %>
     </p>
 
-    <% if @country.states.size > 0 %>
-
-    <h2>States</h2>
-    <table>
-        <th>Name</th>
-        <th>Lat</th>
-        <th>Long</th>
-        <% for state in @country.states %>
-            <tr>
-            <td><%=state.state_name%></td>
-            <td><%=state.lat%></td>
-            <td><%=state.long%></td>
-            </tr>
-        <% end %>
-    </table>
-    <% end %>
-
-    <h2>New State</h2>
-
-    <%= form_for [@country, State.new] do |f| %>
-        <p><%= f.label :name %> <%= f.text_field :name %></p>
-        <p><%= f.submit %></p>
-    <% end %>
-
-
-
-    <%= link_to 'Edit', edit_country_path(@country) %> |
-    <%= link_to 'Back', countries_path %>
+    <%= link_to 'Edit', edit_address_path(@country) %> |
+    <%= link_to 'Back', addresses_path %>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets.google_api_key %>&callback=initMap"
         async defer></script>

@@ -1,40 +1,50 @@
-class CountriesController < ApplicationController
+class AddressesController < ApplicationController
   before_action :set_country, only: [:show, :edit, :update, :destroy]
 
   # GET /countries
   # GET /countries.json
   def index
-    @countries = Country.all
+    @countries = Address.distinct(:country)
   end
 
   # GET /countries/1
   # GET /countries/1.json
   def show
+    # @country = Address.where(:country => )
+    addresses = Address.where(:country => params[:id])
     @states = {}
-    @country.states.each do | state |
-      @states[state.state_name] = {
-          :lat => state.lat,
-          :long => state.long,
-          :dst => @country.day_light_savings,
-          :tz => Timezone[state.timezone].utc_to_local(Time.now)
+    addresses.each do | address |
+      @states[address.full_address] = {
+          :lat => address.lat,
+          :long => address.long,
+          :dst => address.day_light_savings,
+          :tz => Timezone[address.timezone].utc_to_local(Time.now)
       }
     end
+    # @country.states.each do | state |
+    #   @states[state.state_name] = {
+    #       :lat => state.lat,
+    #       :long => state.long,
+    #       :dst => @country.day_light_savings,
+    #       :tz => Timezone[state.timezone].utc_to_local(Time.now)
+    #   }
+    # end
     gon.states = @states
   end
 
   # GET /countries/new
   def new
-    @country = Country.new
-    location = Geokit::Geocoders::GoogleGeocoder.geocode(country_params[:country])
-    if(Country.where(:country_code => location.country_code).count > 0 && !location.state_name.blank?)
-      @country = Country.where(:country_code => location.country_code).first
-      return redirect_to new_country_state_path({:country_id => @country._id, :state => {:state_name => country_params[:country]}})
+    address = Address.where(:_id => country_params[:country]).first
+    if(address.blank?)
+      Address.new({:name => country_params[:country]}).save!
+      newAddress = Address.where(:_id => country_params[:country]).first
+      @country = Address.where(:_id => newAddress.country).first
     else
-      @country = Country.new({:name => country_params[:country]})
+      @country = Address.where(:_id => address.country).first
     end
     respond_to do |format|
-      if @country.save
-        format.html { redirect_to @country, notice: 'Country was successfully created.' }
+      if true
+        format.html { redirect_to address_path(@country), notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @country }
       else
         format.html { render :show }
@@ -50,11 +60,11 @@ class CountriesController < ApplicationController
   # POST /countries
   # POST /countries.json
   def create
-    @country = Country.new(country_params)
+    @country = Address.new(country_params)
 
     respond_to do |format|
       if @country.save
-        format.html { redirect_to @country, notice: 'Country was successfully created.' }
+        format.html { redirect_to @country, notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @country }
       else
         format.html { render :new }
@@ -68,7 +78,7 @@ class CountriesController < ApplicationController
   def update
     respond_to do |format|
       if @country.update(country_params)
-        format.html { redirect_to @country, notice: 'Country was successfully updated.' }
+        format.html { redirect_to @country, notice: 'Address was successfully updated.' }
         format.json { render :show, status: :ok, location: @country }
       else
         format.html { render :edit }
@@ -82,7 +92,7 @@ class CountriesController < ApplicationController
   def destroy
     @country.destroy
     respond_to do |format|
-      format.html { redirect_to countries_url, notice: 'Country was successfully destroyed.' }
+      format.html { redirect_to countries_url, notice: 'Address was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -90,7 +100,11 @@ class CountriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_country
-      @country = Country.find(params[:id])
+      @country = Address.where(:_id => params[:id]).first
+      if(@country.blank?)
+        Address.new({:name => params[:id]}).save!
+        @country = Address.where(:_id => params[:id]).first
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
