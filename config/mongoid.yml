@@ -159,9 +159,7 @@ test:
 production:
   clients:
     default:
-      database: world_time_test
-      hosts:
-        - <%= ENV['MONGODB_URI'] %>
+      uri: <%= ENV['MONGODB_URI'] %>
       options:
         read:
           mode: :primary
