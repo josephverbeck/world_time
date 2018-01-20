@@ -13,8 +13,7 @@ gem 'timezone', '~> 1.0'
 gem 'gon'
 gem 'twitter-bootstrap-rails'
 #Symmetric-encryption
-gem 'symmetric-encryption', '~> 3.8', '>= 3.8.2'
-
+gem 'bcrypt'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use Puma as the app server
