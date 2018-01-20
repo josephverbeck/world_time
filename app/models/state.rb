@@ -27,13 +27,12 @@ class State
     self.street_name ||= location.street_name
     self.city ||= location.city
     self.district ||= location.district
-    self.country ||= location.country
     self.zip ||= location.zip
     self.state ||= location.state
     self.state_code ||= location.state_code
     self.state_name ||= location.state_name
     self.lat, self.long = location.ll.split(",")
-    self.timezone = Timezone.lookup(self.lat, self.long).name
+    self.timezone ||= Timezone.lookup(self.lat, self.long).name
   end
 
 end

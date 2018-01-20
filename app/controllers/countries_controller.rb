@@ -25,6 +25,22 @@ class CountriesController < ApplicationController
   # GET /countries/new
   def new
     @country = Country.new
+    location = Geokit::Geocoders::GoogleGeocoder.geocode(country_params[:country])
+    if(Country.where(:country_code => location.country_code).count > 0 && !location.state_name.blank?)
+      @country = Country.where(:country_code => location.country_code).first
+      return redirect_to new_country_state_path({:country_id => @country._id, :state => {:state_name => country_params[:country]}})
+    else
+      @country = Country.new({:name => country_params[:country]})
+    end
+    respond_to do |format|
+      if @country.save
+        format.html { redirect_to @country, notice: 'Country was successfully created.' }
+        format.json { render :show, status: :created, location: @country }
+      else
+        format.html { render :show }
+        format.json { render json: @country.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /countries/1/edit
@@ -79,6 +95,6 @@ class CountriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def country_params
-      params.require(:country).permit(:name)
+      params.permit(:name, :country)
     end
 end

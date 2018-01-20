@@ -14,12 +14,12 @@
  *= require_self
  */
 .navbar {
-    background-color: transparent;
-    background: transparent;
-    border-width: 0px;
+    background-color: black;
+    opacity:0.5;
+    border-width: 2px;
 }
 .spacer {
-    width: 100%;
-    padding: 50px;
+    width: 90%;
+    padding: 30px;
 }
 

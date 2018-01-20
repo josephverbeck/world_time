@@ -7,6 +7,7 @@ class Country
   field :day_light_savings, type: Boolean
   field :lat, type: Float
   field :long, type: Float
+  
 
   embeds_many :states
 
@@ -14,11 +15,15 @@ class Country
 
   def set_fields
     location = Geokit::Geocoders::GoogleGeocoder.geocode(name.to_s)
+    if(location.country != name)
+      location = Geokit::Geocoders::GoogleGeocoder.geocode(location.country)
+    end
     self.full_address ||= location.full_address
+    self.name = location.country
     self.country ||= location.country
     self.country_code ||= location.country_code
     self.lat, self.long = location.ll.split(",")
-    self.day_light_savings = Timezone.lookup(self.lat, self.long).dst?(Time.now)
+    self.day_light_savings ||= Timezone.lookup(self.lat, self.long).dst?(Time.now)
   end
 
 
