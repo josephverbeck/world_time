@@ -79,7 +79,7 @@
         var stateName = document.createElement('h3');
         stateName.innerText = key;
         var time = document.createElement('h4');
-        time.innerText = "Time:  " + new Date(tz).toDateString() + " " + new Date(tz).toLocaleTimeString();
+        time.innerText = "Time:  " + new Date(tz).toUTCString();
         var wikiLink = document.createElement('a');
         wikiLink.setAttribute('href', "https://en.wikipedia.org/wiki/" + key);
         wikiLink.innerText = "Wiki";
