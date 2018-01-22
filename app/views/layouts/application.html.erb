@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WorldTime</title>
+    <title>World Time</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -14,7 +14,8 @@
     <% if logged_in? %>
       <%= menu_group do %>
         <%= menu_divider %>
-        <%= menu_item "Countries", addresses_path %>
+        <%= menu_item "Home", addresses_path %>
+        <%= menu_divider %>
         <%= menu_item "Log Out", logout_path, method: 'delete'%>
       <% end %>
       <%= form_tag(new_address_path, method: 'get', class: 'navbar-form navbar-right') do %>
