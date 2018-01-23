@@ -3,10 +3,30 @@
     <div id="map"></div>
     <div id="legend"><h3>Legend</h3></div>
 
-    <p>
-    <strong>Name:</strong>
-    <%= @country.name %>
-    </p>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Observing DST?</th>
+        <th>Timezone</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @addresses.each do | address| %>
+        <tr>
+          <td><%= address.full_address %></td>
+          <td><%= address.day_light_savings%></td>
+          <td><%= address.timezone%></td>
+          <td><%= address.lat.round(6) %></td>
+          <td><%= address.long.round(6) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+
+    </table>
     
     <%= link_to 'Back', addresses_path %>
 

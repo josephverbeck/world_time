@@ -1,24 +1,23 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##To stand up
+```bash
+$ bundle install
+```
+then
+```bash
+$ rails s
+```
 
-Things you may want to cover:
-
-* Ruby version
+## Configuration and Requirements
+* Ruby version: 2.4.1
 
 * System dependencies
+     * mongoDB
+     * Google Maps Api key
 
 * Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    * Two environment variables are required for production environment
+       * ENV["GOOGLE_API_KEY"]
+       * ENV['MONGODB_URI']
+            * mongodb://{username}:{password}@host:port/dbname

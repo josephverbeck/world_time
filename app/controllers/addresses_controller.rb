@@ -6,9 +6,9 @@ class AddressesController < ApplicationController
   end
 
   def show
-    addresses = Address.where(:country => params[:id]).in(:user_search => [current_user.id.to_s])
+    @addresses = Address.where(:country => params[:id]).in(:user_search => [current_user.id.to_s])
     @states = {}
-    addresses.each do | address |
+    @addresses.each do | address |
       @states[address.full_address] = {
           :lat => address.lat,
           :long => address.long,
