@@ -6,7 +6,8 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>Name</th>
+        <th>You Searched</th>
+        <th>We found</th>
         <th>Observing DST?</th>
         <th>Timezone</th>
         <th>Latitude</th>
@@ -17,6 +18,7 @@
       <tbody>
       <% @addresses.each do | address| %>
         <tr>
+          <td><%= address.id%></td>
           <td><%= address.full_address %></td>
           <td><%= address.day_light_savings%></td>
           <td><%= address.timezone%></td>
